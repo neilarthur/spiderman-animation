@@ -1,37 +1,80 @@
+/* =========================
+   MAIN CONTAINER
+========================= */
+
+.container {
+  position: relative;
+
+  width: 100%;
+  height: 100vh;
+  min-height: 100svh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+}
+
+/* =========================
+   SPIDER-MAN
+========================= */
+
 .spider-container {
   position: absolute;
+
   top: 0;
+  left: 50%;
+
   transform: translateX(-50%);
 
   display: flex;
   justify-content: center;
   align-items: center;
+
+  z-index: 5;
 }
 
 .spider {
-  width: 220px;
+  width: clamp(130px, 18vw, 220px);
+  height: auto;
 }
 
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center; /* Optional: centers vertically */
-  height: 100vh; /* Optional: full screen height */
-}
+/* =========================
+   BUTTON
+========================= */
 
 button {
   padding: 15px 30px;
+
   font-size: 20px;
+
   cursor: pointer;
+
+  border: none;
+  border-radius: 10px;
 }
+
+/* =========================
+   HEART
+========================= */
 
 .heart {
   position: absolute;
+
   right: -30px;
   top: 380px;
-  font-size: 80px;
+
+  font-size: clamp(45px, 6vw, 80px);
+
   filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.7));
+
+  z-index: 10;
 }
+
+/* =========================
+   SPEECH BALLOON
+========================= */
 
 .speech-balloon {
   position: absolute;
@@ -39,7 +82,7 @@ button {
   top: 200px;
   left: 280px;
 
-  width: 220px;
+  width: clamp(150px, 22vw, 220px);
 
   padding: 15px 20px;
 
@@ -48,8 +91,11 @@ button {
 
   border-radius: 20px;
 
-  font-size: 18px;
+  font-size: clamp(14px, 1.5vw, 18px);
+
   font-weight: 600;
+
+  line-height: 1.4;
 
   text-align: center;
 
@@ -58,7 +104,14 @@ button {
   z-index: 10;
 
   transform-origin: bottom left;
+
+  box-sizing: border-box;
 }
+
+/* =========================
+   SPEECH TAIL
+========================= */
+
 .speech-tail {
   position: absolute;
 
@@ -73,4 +126,92 @@ button {
   border-top: 20px solid white;
 
   transform: rotate(20deg);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+  /* Spider-Man */
+
+  .spider-container {
+    left: 50%;
+  }
+
+  .spider {
+    width: 130px;
+  }
+
+  /* Heart */
+
+  .heart {
+    right: -75px;
+    top: 280px;
+
+    font-size: 50px;
+  }
+
+  /* Speech balloon */
+
+  .speech-balloon {
+    top: 120px;
+    left: 100px;
+
+    width: 150px;
+
+    padding: 10px 12px;
+
+    font-size: 14px;
+
+    border-radius: 16px;
+  }
+
+  /* Speech tail */
+
+  .speech-tail {
+    left: 18px;
+
+    bottom: -12px;
+
+    border-left-width: 10px;
+    border-right-width: 10px;
+    border-top-width: 15px;
+  }
+
+  /* Button */
+
+  button {
+    padding: 12px 24px;
+
+    font-size: 17px;
+  }
+}
+
+/* =========================
+   VERY SMALL PHONES
+========================= */
+
+@media (max-width: 380px) {
+  .spider {
+    width: 115px;
+  }
+
+  .heart {
+    right: -65px;
+    top: 250px;
+
+    font-size: 45px;
+  }
+
+  .speech-balloon {
+    top: 110px;
+    left: 80px;
+
+    width: 135px;
+
+    font-size: 13px;
+
+    padding: 9px 10px;
+  }
 }
