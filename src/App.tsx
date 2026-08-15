@@ -1,17 +1,23 @@
 import { useState } from "react";
-import "./App.css";
 import SpiderMan from "./components/SpiderMan";
+import "./App.css";
 
 function App() {
-  const [showSpider, setShowSpider] = useState(false);
+  const [startAnimation, setStartAnimation] = useState(false);
 
   return (
     <div className="container">
-      {!showSpider && (
-        <button onClick={() => setShowSpider(true)}>Click Me</button>
+      {!startAnimation && (
+        <button className="gift-button" onClick={() => setStartAnimation(true)}>
+          Click Me  
+        </button>
       )}
 
-      {showSpider && <SpiderMan />}
+      {startAnimation && (
+        <>
+          <SpiderMan />
+        </>
+      )}
     </div>
   );
 }
