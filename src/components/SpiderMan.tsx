@@ -63,7 +63,7 @@ const SpiderMan = () => {
               ease: "backOut",
             }}
           >
-            This heart is for you ❤️
+            This heart is for you
             <div className="speech-tail" />
           </motion.div>
         )}
