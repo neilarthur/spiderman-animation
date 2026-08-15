@@ -1,10 +1,31 @@
 /* =========================
+   SPIDER-MAN
+========================= */
+
+.spider-container {
+  position: absolute;
+
+  top: 0;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spider {
+  width: clamp(120px, 22vw, 220px);
+  height: auto;
+  display: block;
+}
+
+
+/* =========================
    MAIN CONTAINER
 ========================= */
 
 .container {
-  position: relative;
-
   width: 100%;
   height: 100vh;
   min-height: 100svh;
@@ -16,44 +37,23 @@
   overflow: hidden;
 }
 
-/* =========================
-   SPIDER-MAN
-========================= */
-
-.spider-container {
-  position: absolute;
-
-  top: 0;
-  left: 50%;
-
-  transform: translateX(-50%);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  z-index: 5;
-}
-
-.spider {
-  width: clamp(130px, 18vw, 220px);
-  height: auto;
-}
 
 /* =========================
    BUTTON
 ========================= */
 
 button {
-  padding: 15px 30px;
+  padding: clamp(10px, 2vw, 15px)
+           clamp(20px, 4vw, 30px);
 
-  font-size: 20px;
+  font-size: clamp(15px, 2.5vw, 20px);
 
   cursor: pointer;
 
   border: none;
   border-radius: 10px;
 }
+
 
 /* =========================
    HEART
@@ -62,15 +62,28 @@ button {
 .heart {
   position: absolute;
 
-  right: -30px;
-  top: 380px;
+  /*
+    Scales based on screen width.
+    Maximum = 80px
+    Minimum = 40px
+  */
+  font-size: clamp(40px, 8vw, 80px);
 
-  font-size: clamp(45px, 6vw, 80px);
+  /*
+    Position also scales.
+  */
+  right: clamp(-35px, -4vw, -30px);
 
-  filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.7));
+  top: clamp(220px, 30vw, 380px);
+
+  filter:
+    drop-shadow(
+      0 0 10px rgba(255, 0, 0, 0.7)
+    );
 
   z-index: 10;
 }
+
 
 /* =========================
    SPEECH BALLOON
@@ -79,19 +92,27 @@ button {
 .speech-balloon {
   position: absolute;
 
-  top: 200px;
-  left: 280px;
+  /*
+    Position scales with screen.
+  */
+  top: clamp(120px, 16vw, 200px);
 
-  width: clamp(150px, 22vw, 220px);
+  left: clamp(130px, 25vw, 280px);
 
-  padding: 15px 20px;
+  /*
+    Width automatically changes.
+  */
+  width: clamp(140px, 22vw, 220px);
+
+  padding: clamp(10px, 1.5vw, 15px)
+           clamp(12px, 2vw, 20px);
 
   background: white;
   color: #222;
 
-  border-radius: 20px;
+  border-radius: clamp(14px, 2vw, 20px);
 
-  font-size: clamp(14px, 1.5vw, 18px);
+  font-size: clamp(12px, 1.8vw, 18px);
 
   font-weight: 600;
 
@@ -99,7 +120,8 @@ button {
 
   text-align: center;
 
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 5px 20px rgba(0, 0, 0, 0.2);
 
   z-index: 10;
 
@@ -108,6 +130,7 @@ button {
   box-sizing: border-box;
 }
 
+
 /* =========================
    SPEECH TAIL
 ========================= */
@@ -115,103 +138,24 @@ button {
 .speech-tail {
   position: absolute;
 
-  left: 25px;
-  bottom: -15px;
+  left: clamp(15px, 2vw, 25px);
+
+  bottom: clamp(-12px, -1.5vw, -15px);
 
   width: 0;
   height: 0;
 
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
-  border-top: 20px solid white;
+  border-left:
+    clamp(8px, 1.3vw, 15px)
+    solid transparent;
+
+  border-right:
+    clamp(8px, 1.3vw, 15px)
+    solid transparent;
+
+  border-top:
+    clamp(12px, 1.7vw, 20px)
+    solid white;
 
   transform: rotate(20deg);
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 600px) {
-  /* Spider-Man */
-
-  .spider-container {
-    left: 50%;
-  }
-
-  .spider {
-    width: 130px;
-  }
-
-  /* Heart */
-
-  .heart {
-    right: -75px;
-    top: 280px;
-
-    font-size: 50px;
-  }
-
-  /* Speech balloon */
-
-  .speech-balloon {
-    top: 120px;
-    left: 100px;
-
-    width: 150px;
-
-    padding: 10px 12px;
-
-    font-size: 14px;
-
-    border-radius: 16px;
-  }
-
-  /* Speech tail */
-
-  .speech-tail {
-    left: 18px;
-
-    bottom: -12px;
-
-    border-left-width: 10px;
-    border-right-width: 10px;
-    border-top-width: 15px;
-  }
-
-  /* Button */
-
-  button {
-    padding: 12px 24px;
-
-    font-size: 17px;
-  }
-}
-
-/* =========================
-   VERY SMALL PHONES
-========================= */
-
-@media (max-width: 380px) {
-  .spider {
-    width: 115px;
-  }
-
-  .heart {
-    right: -65px;
-    top: 250px;
-
-    font-size: 45px;
-  }
-
-  .speech-balloon {
-    top: 110px;
-    left: 80px;
-
-    width: 135px;
-
-    font-size: 13px;
-
-    padding: 9px 10px;
-  }
 }

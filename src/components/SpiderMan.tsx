@@ -15,7 +15,7 @@ const SpiderMan = () => {
   return (
     <motion.div
       className="spider-container"
-      initial={{ y: -700 }}
+      initial={{ y: "-70vh" }}
       animate={{ y: 0 }}
       transition={{
         duration: 3,
