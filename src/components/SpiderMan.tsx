@@ -1,73 +1,185 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import spider from "../images/spiderman-upsidedown.png";
+import music from "../music/flower.mp3";
+import lyrics from "./lyrics";
 
 const SpiderMan = () => {
   const [showHeart, setShowHeart] = useState(false);
   const [showSpeech, setShowSpeech] = useState(false);
+  const [currentLyric, setCurrentLyric] = useState("");
+
+  const [introMessage, setIntroMessage] = useState("");
+
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // ==========================================
+  // CREATE AUDIO
+  // ==========================================
+
+  useEffect(() => {
+    audioRef.current = new Audio(music);
+
+    audioRef.current.preload = "auto";
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+        audioRef.current = null;
+      }
+    };
+  }, []);
+
+  // ==========================================
+  // UPDATE LYRICS WHILE MUSIC PLAYS
+  // ==========================================
+
+  useEffect(() => {
+    const audio = audioRef.current;
+
+    if (!audio) return;
+
+    const updateLyric = () => {
+      const currentTime = audio.currentTime;
+
+      let lyric = "";
+
+      for (let i = 0; i < lyrics.length; i++) {
+        if (currentTime >= lyrics[i].time) {
+          lyric = lyrics[i].text;
+        } else {
+          break;
+        }
+      }
+
+      setCurrentLyric(lyric);
+    };
+
+    audio.addEventListener("timeupdate", updateLyric);
+
+    return () => {
+      audio.removeEventListener("timeupdate", updateLyric);
+    };
+  }, []);
+
+  // ==========================================
+  // SPIDER-MAN FINISHED COMING DOWN
+  // ==========================================
 
   const handleSpiderComplete = () => {
     setShowHeart(true);
+    setShowSpeech(true);
+    setIntroMessage("This song is for you emoji 🎤");
 
     setTimeout(() => {
-      setShowSpeech(true);
-    }, 700);
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0;
+
+        audioRef.current
+          .play()
+          .catch((error) => {
+            console.log("Audio could not play:", error);
+          });
+      }
+
+      setIntroMessage("");
+
+    }, 2500);
   };
+
+  // ==========================================
+  // CURRENT MESSAGE
+  // ==========================================
+
+  const displayedMessage =
+    introMessage || currentLyric;
 
   return (
     <div className="spider-position">
       <motion.div
         className="spider-container"
-        initial={{ y: "-70vh" }}
-        animate={{ y: 0 }}
+
+        initial={{
+          y: "-70vh",
+        }}
+
+        animate={{
+          y: 0,
+        }}
+
         transition={{
+          delay: 1,
           duration: 3,
           ease: "easeInOut",
         }}
+
         onAnimationComplete={handleSpiderComplete}
       >
-        {/* Spider-Man */}
-        <img src={spider} alt="Spider-Man" className="spider" />
+        <img
+          src={spider}
+          alt="Spider-Man"
+          className="spider"
+        />
 
-        {/* Heart */}
         {showHeart && (
           <motion.div
             className="heart"
+
+            initial={{
+              scale: 0,
+              opacity: 0,
+            }}
+
             animate={{
               scale: [1, 1.15, 1],
+              opacity: 1,
             }}
+
             transition={{
-              duration: 0.8,
-              repeat: Infinity,
-              ease: "easeInOut",
+              opacity: {
+                duration: 0.3,
+              },
+
+              scale: {
+                duration: 0.8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              },
             }}
           >
             ❤️
           </motion.div>
         )}
 
-        {/* Speech Balloon */}
-        {showSpeech && (
+        {showSpeech && displayedMessage && (
           <motion.div
+            key={displayedMessage}
             className="speech-balloon"
+
             initial={{
               scale: 0,
               opacity: 0,
             }}
+
             animate={{
               scale: 1,
               opacity: 1,
             }}
+
             transition={{
-              duration: 0.5,
+              duration: 0.4,
               ease: "backOut",
             }}
           >
-            This heart is for you
+            {displayedMessage}
+
             <div className="speech-tail" />
           </motion.div>
         )}
+
       </motion.div>
+
     </div>
   );
 };
