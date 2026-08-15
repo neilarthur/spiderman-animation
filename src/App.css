@@ -1,0 +1,34 @@
+.spider-container {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spider {
+  width: 220px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Optional: centers vertically */
+  height: 100vh; /* Optional: full screen height */
+}
+
+button {
+  padding: 15px 30px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.heart {
+  position: absolute;
+  right: -30px;
+  top: 380px;
+  font-size: 80px;
+  filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.7));
+}
