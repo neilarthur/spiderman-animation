@@ -70,7 +70,7 @@ const SpiderMan = () => {
   const handleSpiderComplete = () => {
     setShowHeart(true);
     setShowSpeech(true);
-    setIntroMessage("Hi! This song is for you 🎤");
+    setIntroMessage("Hi! I'm Spider-Man, I'm going to sing a song for you 🎤");
 
     setTimeout(() => {
       if (audioRef.current) {
